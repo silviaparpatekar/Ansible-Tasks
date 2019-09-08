@@ -1,0 +1,13 @@
+---
+- name: LVM
+  hosts: localhost
+  become: yes
+  tasks:
+  - name: Create LVM
+    parted:
+      device: /dev/sdb
+      number: 2
+      flags: [lvm]
+      state: present
+      part_start: 1GiB
+      part_end: 3GiB
