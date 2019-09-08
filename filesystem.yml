@@ -1,0 +1,10 @@
+---
+- name: File System
+  hosts: localhost
+  become: yes
+  tasks:
+  - name: Apply File System
+    filesystem:
+      fstype: ext4
+      device: /dev/sdb1
+      opts: -cc
