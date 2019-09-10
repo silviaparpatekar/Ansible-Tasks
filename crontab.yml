@@ -1,0 +1,29 @@
+---
+- name: Crontab
+  hosts: localhost
+  become: yes
+
+  tasks: 
+  - name: Job running at 3 and 6
+    cron: 
+      name: "Check dirs"
+      minute: "0"
+      hour: "6,3"
+      job: "ls -ld > /dev/null"
+      
+  - name: Removing old jobs
+    cron: 
+      name: "Old job"
+      state: absent
+      
+  - name: @Reboot crontab
+    cron: 
+       name: "reboot"
+       special_time: reboot
+       job: "/script.sh"
+       
+  - name: "Path=/root/sil"
+    cron: 
+      name: "PATH"
+      env: yes
+      job: /root/sil
