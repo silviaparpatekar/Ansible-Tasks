@@ -1,0 +1,30 @@
+---
+- name: Install Apache 
+  hosts: localhost
+  become: yes
+  
+  tasks:
+  - name: HTTPD Task
+    yum: 
+      name: httpd
+      state: present
+      
+  - name: Index File
+     copy: 
+       src: 1.conf
+       dest: /etc/httpd/conf.d/1.conf
+       
+  - name: Configuration File
+    firewalld:
+      service: http
+      permanent: true
+      state: enabled
+     
+  - name: Enable Http
+    service:
+      name: httpd
+      enabled: yes
+  - name: restart Http
+    service: 
+      name: htppd
+      state: restarted
